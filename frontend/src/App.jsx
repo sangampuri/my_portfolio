@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import SectionHeading from "./components/SectionHeading";
+import Hero from "./sections/Hero";
 
 const LiquidBackground = lazy(() => import("./three/LiquidBackground"));
 
@@ -23,14 +24,15 @@ export default function App() {
       </Suspense>
       <Navbar />
       <main className="pt-[72px]">
-        {SECTIONS.map((s) => (
-          <section key={s.id} id={s.id} className="min-h-screen px-5 py-24">
-            <div className="mx-auto max-w-7xl">
-              <SectionHeading num={s.num} label={s.label} title={s.title} />
-            </div>
-          </section>
-        ))}
-      </main>
+      <Hero />
+      {SECTIONS.filter((s) => s.id !== "home").map((s) => (
+        <section key={s.id} id={s.id} className="min-h-screen px-5 py-24">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading num={s.num} label={s.label} title={s.title} />
+          </div>
+        </section>
+      ))}
+    </main>
     </>
   );
 }
