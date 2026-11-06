@@ -23,6 +23,11 @@ body {
   color: var(--color-text);
   font-family: var(--font-body);
   overflow-x: hidden;
+  background-image:
+  linear-gradient(rgba(157, 78, 221, 0.06) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(157, 78, 221, 0.06) 1px, transparent 1px);
+background-size: 48px 48px;
+background-attachment: fixed;
 }
 section { scroll-margin-top: 72px; }
 
