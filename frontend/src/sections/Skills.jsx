@@ -3,7 +3,7 @@ import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
 import SkillIcon from "../components/SkillIcon";
 import useTilt from "../hooks/useTilt";
-import { skills } from "../data/skills";
+import { usePortfolio } from "../context/PortfolioData";
 
 function CategoryLabel({ index, title, accent }) {
   return (
@@ -33,10 +33,10 @@ function TiltCard({ skill }) {
   );
 }
 
-function Frontend() {
+function Frontend({items}) {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-      {skills.frontend.map((s, i) => (
+      {items.map((s, i) => (
         <Reveal key={s.name} delay={i * 0.07} className={i % 2 ? "lg:mt-10" : ""}>
           <TiltCard skill={s} />
         </Reveal>
@@ -46,10 +46,10 @@ function Frontend() {
 }
 
 /* BACKEND: wide numbered rows */
-function Backend() {
+function Backend({items}) {
   return (
     <div className="grid gap-4">
-      {skills.backend.map((s, i) => (
+      {items.map((s, i) => (
         <Reveal key={s.name} delay={i * 0.08}>
           <div className="group flex items-center gap-5 bg-card border-l-4 border-neon px-5 py-5 hover:border-hot hover:translate-x-2 transition-all shadow-[0_12px_28px_rgba(0,0,0,0.5)]">
             <span className="hidden sm:block font-tech text-4xl font-extrabold text-white/10 group-hover:text-hot/40 transition-colors w-16">
@@ -68,7 +68,7 @@ function Backend() {
 }
 
 /* DATABASE: terminal window */
-function Database() {
+function Database({items}) {
   return (
     <Reveal>
       <div className="bg-[#0b0d16] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
@@ -80,7 +80,7 @@ function Database() {
         </div>
         <div className="p-5 font-mono text-sm">
           <p className="text-cyan mb-4">$ SELECT * FROM databases;</p>
-          {skills.database.map((s) => (
+          {items.map((s) => (
             <div
               key={s.name}
               className="flex items-center gap-4 py-3 px-3 -mx-3 border-b border-white/5 hover:bg-electric/10 transition-colors"
@@ -90,7 +90,7 @@ function Database() {
               <span className="text-muted">{s.desc}</span>
             </div>
           ))}
-          <p className="mt-4 text-neon">{skills.database.length} rows<span className="animate-pulse">_</span></p>
+          <p className="mt-4 text-neon">{items.length} rows<span className="animate-pulse">_</span></p>
         </div>
       </div>
     </Reveal>
@@ -98,10 +98,10 @@ function Database() {
 }
 
 /* TOOLS: floating chips */
-function Tools() {
+function Tools({items}) {
   return (
     <div className="flex flex-wrap gap-5">
-      {skills.tools.map((s, i) => (
+      {items.map((s, i) => (
         <motion.div
           key={s.name}
           animate={{ y: [0, -8, 0] }}
@@ -120,6 +120,8 @@ function Tools() {
 }
 
 export default function Skills() {
+  const { skills } = usePortfolio();
+
   return (
     <section id="skills" className="px-5 py-24">
       <div className="mx-auto max-w-7xl">
@@ -128,23 +130,23 @@ export default function Skills() {
         <div className="space-y-20">
           <div>
             <CategoryLabel index="01" title="Frontend development" accent="#00D9FF" />
-            <Frontend />
+            <Frontend items={skills.frontend} />
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
               <CategoryLabel index="02" title="Backend development" accent="#9D4EDD" />
-              <Backend />
+              <Backend items={skills.backend} />
             </div>
             <div>
               <CategoryLabel index="03" title="Database" accent="#00F5D4" />
-              <Database />
+              <Database items={skills.database} />
             </div>
           </div>
 
           <div>
             <CategoryLabel index="04" title="Development tools" accent="#FF2E93" />
-            <Tools />
+            <Tools items={skills.tools} />
           </div>
         </div>
       </div>

@@ -3,6 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
 import { about } from "../data/about";
+import { usePortfolio } from "../context/PortfolioData";
+
+const { profile } = usePortfolio();
+const intro = profile.about || {intro};
+const facts = facts.map((f) =>
+  f.label === "BASE" && profile.location ? { ...f, value: profile.location } : f
+);
 
 function Cube({ x, y, s = 1, glow }) {
   return (

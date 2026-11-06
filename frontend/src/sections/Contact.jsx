@@ -5,10 +5,11 @@ import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
 import Envelope from "../components/Envelope";
 import { sendContact } from "../services/api";
-import { contactLinks } from "../data/contact";
+import { usePortfolio } from "../context/PortfolioData";
 
-const EMPTY = { name: "", email: "", subject: "", message: "", website: "" };
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const safeUrl = (u) => (/^https?:\/\//i.test(u || "") ? u : null);
+const strip = (u) => (u || "").replace(/^https?:\/\//i, "").replace(/\/$/, "");
 
 function validate(v) {
   const e = {};
@@ -33,6 +34,12 @@ const inputCls =
   "mt-2 w-full bg-bg2 border border-white/10 px-4 py-3 text-text placeholder:text-muted/50 outline-none focus:border-electric focus:shadow-[0_0_0_1px_#00D9FF] transition";
 
 export default function Contact() {
+    const { profile } = usePortfolio();
+const contactLinks = [
+  { label: "EMAIL", href: profile.email ? `mailto:${profile.email}` : null, display: profile.email },
+  { label: "GITHUB", href: safeUrl(profile.github_url), display: strip(profile.github_url) },
+  { label: "LINKEDIN", href: safeUrl(profile.linkedin_url), display: strip(profile.linkedin_url) },
+];
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | sending | success | error

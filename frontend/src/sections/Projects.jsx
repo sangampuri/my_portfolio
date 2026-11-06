@@ -4,7 +4,7 @@ import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
 import ProjectArt from "../components/ProjectArt";
 import useTilt from "../hooks/useTilt";
-import { projects } from "../data/projects";
+import { usePortfolio } from "../context/PortfolioData";
 
 function LinkButton({ href, icon: Icon, label, accent }) {
   if (!href) {
@@ -111,7 +111,9 @@ function Project({ p, flip }) {
 }
 
 export default function Projects() {
+    const { projects } = usePortfolio();
   return (
+    
     <section id="projects" className="px-5 py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl">
         <SectionHeading num="03" label="PROJECTS" title="THINGS I'VE BUILT." />

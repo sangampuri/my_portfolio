@@ -10,7 +10,7 @@ import Stats from "./sections/Stats";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 import Playground from "./sections/Playground";
-import { PlayCircle } from "lucide-react";
+import { PortfolioProvider } from "./context/PortfolioData";
 
 
 const PLACEHOLDERS = [
@@ -41,6 +41,11 @@ export default function App() {
         </div>
       </section>
     ))}
+     <PortfolioProvider>
+    <MotionConfig reducedMotion="user">
+      ...same as before...
+    </MotionConfig>
+  </PortfolioProvider>
     <Stats />
     <Contact />
   </main>

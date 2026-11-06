@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll } from "framer-motion";
 import { Terminal, Code, Layers, Database, Lock, Server, Boxes, Sparkles } from "lucide-react";
 import SectionHeading from "../components/SectionHeading";
-import { journey } from "../data/journey";
+import { usePortfolio } from "../context/PortfolioData";
 
 const ICONS = { Terminal, Code, Layers, Database, Lock, Server, Boxes, Sparkles };
 
@@ -58,6 +58,7 @@ function Milestone({ m, index }) {
 }
 
 export default function Journey() {
+    const { journey } = usePortfolio();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { animate, useInView } from "framer-motion";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
-import { baseStats, githubUser } from "../data/stats";
+import { usePortfolio } from "../context/PortfolioData";
 
 function Counter({ to }) {
   const ref = useRef(null);
@@ -29,21 +29,26 @@ function Counter({ to }) {
 }
 
 export default function Stats() {
+  const { profile, projects, skills, journey } = usePortfolio();
   const [repos, setRepos] = useState(null);
+  const user = profile.github_username;
 
   useEffect(() => {
-    if (!githubUser) return;
+    if (!user) return;
     const ctrl = new AbortController();
-    fetch(`https://api.github.com/users/${githubUser}`, { signal: ctrl.signal })
+    fetch(`https://api.github.com/users/${user}`, { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((d) => setRepos(d.public_repos))
       .catch(() => {});
     return () => ctrl.abort();
-  }, []);
+  }, [user]);
 
-  const stats = repos != null
-    ? [...baseStats, { label: "github_repositories", value: repos }]
-    : baseStats;
+  const stats = [
+    { label: "projects_completed", value: projects.filter((p) => p.status === "Completed").length },
+    { label: "technologies_explored", value: Object.values(skills).flat().length },
+    { label: "learning_milestones", value: journey.length },
+  ];
+  if (user && repos != null) stats.push({ label: "github_repositories", value: repos });
 
   return (
     <section id="stats" className="px-5 py-24">

@@ -1,6 +1,10 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { usePortfolio } from "../context/PortfolioData";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
+
+const { profile } = usePortfolio();
+const [first, ...rest] = profile.name.trim().split(" ");
 
 const HeroScene = lazy(() => import("../three/HeroScene"));
 
@@ -39,9 +43,9 @@ export default function Hero() {
             variants={item}
             className="font-display font-bold uppercase leading-[0.95] text-6xl sm:text-7xl xl:text-8xl"
           >
-            Sangam
+           {first}
             <br />
-            <span className="text-electric">Puri</span>
+            <span className="text-electric">{rest.join(" ")}</span>
           </motion.h1>
 
           <motion.p variants={item} className="mt-5 font-mono text-xs sm:text-sm text-neon tracking-wider">
