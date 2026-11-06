@@ -48,3 +48,24 @@ export function makeScreenTexture() {
   t.colorSpace = THREE.SRGBColorSpace;
   return t;
 }
+
+export function makeSignTexture(text, color = "#FF2E93") {
+  const c = document.createElement("canvas");
+  c.width = 1024;
+  c.height = 256;
+  const ctx = c.getContext("2d");
+  ctx.clearRect(0, 0, 1024, 256);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 8;
+  ctx.strokeRect(12, 12, 1000, 232);
+  ctx.fillStyle = color;
+  ctx.font = "bold 96px monospace";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 30;
+  ctx.fillText(text, 512, 134);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}

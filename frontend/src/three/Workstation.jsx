@@ -33,7 +33,7 @@ function Badge({ text, color, position }) {
   );
 }
 
-function Particles({ count }) {
+export function Particles({ count }) {
   const ref = useRef();
   const positions = useMemo(() => {
     const a = new Float32Array(count * 3);
