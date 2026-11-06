@@ -5,12 +5,6 @@ import Reveal from "../components/Reveal";
 import { about } from "../data/about";
 import { usePortfolio } from "../context/PortfolioData";
 
-const { profile } = usePortfolio();
-const intro = profile.about || {intro};
-const facts = facts.map((f) =>
-  f.label === "BASE" && profile.location ? { ...f, value: profile.location } : f
-);
-
 function Cube({ x, y, s = 1, glow }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinejoin="round">
@@ -54,7 +48,13 @@ function IsoIllustration() {
 }
 
 export default function About() {
+  const { profile } = usePortfolio();
   const [open, setOpen] = useState(false);
+
+  const intro = profile?.about || about.intro;
+  const facts = about.facts.map((f) =>
+    f.label === "BASE" && profile?.location ? { ...f, value: profile.location } : f
+  );
 
   return (
     <section id="about" className="relative px-5 py-24 overflow-hidden">
@@ -64,12 +64,12 @@ export default function About() {
 
           <Reveal>
             <p className="text-xl md:text-2xl leading-relaxed text-text/90 max-w-2xl">
-              {about.intro}
+              {intro}
             </p>
           </Reveal>
 
           <Reveal delay={0.1} className="mt-10 grid grid-cols-3 gap-4 max-w-xl">
-            {about.facts.map((f) => (
+            {facts.map((f) => (
               <div key={f.label} className="border-t border-electric/60 pt-3">
                 <p className="font-mono text-[10px] tracking-[0.25em] text-muted">{f.label}</p>
                 <p className="font-display text-sm sm:text-base font-semibold mt-1">{f.value}</p>

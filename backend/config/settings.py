@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "portfolio",
     "contact",
-    "game",
 ]
 
 MIDDLEWARE = [
@@ -68,7 +67,6 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "anon": "200/hour",
         "contact": "5/hour",
-        "score": "20/hour",
     },
 }
 

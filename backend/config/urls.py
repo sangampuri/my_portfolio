@@ -14,7 +14,6 @@ urlpatterns = [
     path("api/health/", health),
     path("api/", include("portfolio.urls")),
     path("api/", include("contact.urls")),
-    path("api/game/", include("game.urls")),
 ]
 
 if settings.DEBUG:

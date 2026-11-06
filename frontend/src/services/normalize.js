@@ -19,7 +19,11 @@ export const normalizeProjects = (list) =>
     num: String(i + 1).padStart(2, "0"),
     title: p.title,
     description: p.description,
-    tech: p.technologies,
+    tech: Array.isArray(p.technologies)
+      ? p.technologies
+      : typeof p.technologies === "string"
+      ? p.technologies.split(",").map((s) => s.trim()).filter(Boolean)
+      : [],
     status: p.status,
     github: p.github_url || null,
     demo: p.live_demo_url || null,

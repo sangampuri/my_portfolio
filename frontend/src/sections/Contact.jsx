@@ -8,6 +8,9 @@ import { sendContact } from "../services/api";
 import { usePortfolio } from "../context/PortfolioData";
 
 
+const EMPTY = { name: "", email: "", subject: "", message: "", website: "" };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const safeUrl = (u) => (/^https?:\/\//i.test(u || "") ? u : null);
 const strip = (u) => (u || "").replace(/^https?:\/\//i, "").replace(/\/$/, "");
 

@@ -3,9 +3,6 @@ import { usePortfolio } from "../context/PortfolioData";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
-const { profile } = usePortfolio();
-const [first, ...rest] = profile.name.trim().split(" ");
-
 const HeroScene = lazy(() => import("../three/HeroScene"));
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
@@ -15,6 +12,10 @@ const item = {
 };
 
 export default function Hero() {
+  const { profile } = usePortfolio();
+  const nameParts = (profile?.name || "Sangam Puri").trim().split(" ");
+  const first = nameParts[0] || "Sangam";
+  const rest = nameParts.slice(1);
   const sceneRef = useRef(null);
   const [visible, setVisible] = useState(true);
   const [mobile] = useState(() => window.innerWidth < 768);
