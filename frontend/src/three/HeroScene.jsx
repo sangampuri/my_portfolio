@@ -12,10 +12,10 @@ export default function HeroScene({ mobile, reduced, visible }) {
       <OrthographicCamera
         makeDefault
         position={[8, 6, 8]}
-        zoom={mobile ? 55 : 80}
+        zoom={mobile ? 36 : 58}
         near={0.1}
         far={100}
-        onUpdate={(c) => c.lookAt(0, 0.9, 0)}
+        onUpdate={(c) => c.lookAt(0, 1.2, -0.4)}
       />
       <Workstation mobile={mobile} reduced={reduced} />
     </Canvas>
