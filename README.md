@@ -31,5 +31,17 @@ projects/skills/journey managed from Django admin, contact form saved to databas
 
 Site: http://localhost:5173  |  Admin: http://127.0.0.1:8000/admin/
 
+### Preview the production build locally
+From `frontend`, run:
+
+    npm run build
+    npm run preview
+
+Vite preview runs at http://localhost:4173 by default. Add both
+`http://localhost:4173` and `http://127.0.0.1:4173` to
+`CORS_ALLOWED_ORIGINS` in `backend/.env`, alongside the existing dev-server origins,
+and restart Django. The frontend API URL in `frontend/.env` is embedded during
+the build, so run `npm run build` again after changing it.
+
 ## Content
 Edit profile, skills, projects, journey and read contact messages in Django admin.

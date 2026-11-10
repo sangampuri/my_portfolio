@@ -1,0 +1,39 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Django virtual environments
+venv/
+.venv/
+ENV/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# SQLite database
+*.sqlite3
+*.sqlite3-journal
+
+# Python generated files
+*.log
+.pytest_cache/
+
+# React / Node
+node_modules/
+dist/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Django collected static files
+backend/staticfiles/
